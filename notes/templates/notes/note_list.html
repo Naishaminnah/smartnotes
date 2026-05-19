@@ -1,0 +1,30 @@
+{% extends 'notes/base.html' %}
+
+{% block content %}
+
+<h2>My Notes</h2>
+{% if notes %}
+    <form method="GET" class="mb-4 d-flex">
+        {% csrf_token %}
+        <input type="text" class="form-control" name="q" placeholder="search notes..." value="{{query}}">
+        <button class="btn btn-primary">Search</button>
+    </form>
+    {% for note in notes %}
+        <div class="card mb-4 p-3">
+           <h1>{{note.title}}</h1>
+           <p>{{note.content}}</p>
+           <small class="text-muted">{{note.created_at}}</small>
+           <br><br>
+
+           <a class="btn btn-warning btn-sm" href="{% url 'edit_note' note.id %}">Edit</a>
+           <form method="POST" action="{% url 'delete_note' note.id %}" style="display: inline;">
+           <button class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+        </form>
+        </div>
+    {% endfor %}
+ {% else %}
+     <p>No Notes Yet.</p>
+ {% endif %}
+{% endblock %}     
+        
+    

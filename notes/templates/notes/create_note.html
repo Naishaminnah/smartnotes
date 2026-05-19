@@ -1,0 +1,16 @@
+{% extends 'notes/base.html' %}
+        {% block content %}
+            <h1>Create Notes</h1>
+          
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <input class="form-control" name="title" placeholder="Title">
+                </div>
+                
+                <div class="mb-3">
+                    <textarea class="form-control" name="content" placeholder="Content"></textarea>
+                </div>
+                <button class="btn btn-success">Save</button>
+            </form>
+        {% endblock %}
